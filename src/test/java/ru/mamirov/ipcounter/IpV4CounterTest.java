@@ -12,7 +12,7 @@ class IpV4CounterTest {
         int[] numbers = new int[]{1, 2, 3, 4, 1, 2, 3, 4};
 
         for (int number : numbers) {
-            counter.countUniqueIp(number);
+            counter.addIpV4Address(number);
         }
 
         assertEquals(4, counter.count());
@@ -23,7 +23,7 @@ class IpV4CounterTest {
         IpV4Counter counter = new IpV4Counter();
 
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            counter.countUniqueIp(i);
+            counter.addIpV4Address(i);
         }
 
         assertEquals(Integer.MAX_VALUE, counter.count());
@@ -34,7 +34,7 @@ class IpV4CounterTest {
         IpV4Counter counter = new IpV4Counter();
 
         for (int i = Integer.MIN_VALUE; i < 0; i++) {
-            counter.countUniqueIp(i);
+            counter.addIpV4Address(i);
         }
 
         assertEquals(Integer.MAX_VALUE + 1L, counter.count());
@@ -45,7 +45,7 @@ class IpV4CounterTest {
         IpV4Counter counter = new IpV4Counter();
 
         for (int i = 0; i < 5; i++) {
-            counter.countUniqueIp(Integer.MIN_VALUE);
+            counter.addIpV4Address(Integer.MIN_VALUE);
         }
 
         assertEquals(1, counter.count());
@@ -61,7 +61,7 @@ class IpV4CounterTest {
         for (int i = 0; i < threadCount; i++) {
             threads[i] = new Thread(() -> {
                 for (int j = -expectedValue; j < expectedValue; j++) {
-                    counter.countUniqueIp(j);
+                    counter.addIpV4Address(j);
                 }
             });
         }

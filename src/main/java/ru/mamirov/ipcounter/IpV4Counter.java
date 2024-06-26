@@ -8,7 +8,7 @@ public class IpV4Counter {
     /**
      * @param ipAddrValue integer value of IpV4 address string literal
      */
-    public void countUniqueIp(int ipAddrValue) {
+    public void addIpV4Address(int ipAddrValue) {
         if (ipAddrValue < 0) {
             if (!negativeBitSet.get(Math.abs(ipAddrValue))) {
                 negativeBitSet.set(Math.abs(ipAddrValue));
