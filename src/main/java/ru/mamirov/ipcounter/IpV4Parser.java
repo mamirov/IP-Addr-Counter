@@ -18,7 +18,7 @@ public class IpV4Parser {
 
             long fileSize = file.length();
             //calculate tasks per chunks
-            int tasksCount = Runtime.getRuntime().availableProcessors();
+            int tasksCount = 2;
             if (fileSize > (long) tasksCount * Integer.MAX_VALUE) {
                 tasksCount = (int) (fileSize / (Integer.MAX_VALUE - 1)) + 1;
             }
@@ -28,7 +28,7 @@ public class IpV4Parser {
             for (int i = 1; i < tasksCount; i++) {
                 var start = i * fileSize / tasksCount;
                 file.seek(start);
-                while (file.read() != '\n') {
+                while (file.read() != '\n' && file.getFilePointer() != fileSize) {
                 }
                 start = file.getFilePointer();
                 chunks[i] = start;
@@ -72,6 +72,12 @@ public class IpV4Parser {
                     octet = 0;
                 } else if (c != '\n' && c != '\r') {
                     octet = octet * 10 + (c - '0');
+                    if (j == end - 1) {
+                        ipAddrCom = (ipAddrCom << 8) | octet;
+                        ipValueProducer.accept(ipAddrCom);
+                        ipAddrCom = 0;
+                        octet = 0;
+                    }
                 } else {
                     if (c != '\n') {
                         ipAddrCom = (ipAddrCom << 8) | octet;
