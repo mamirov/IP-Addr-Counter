@@ -41,6 +41,17 @@ class IpV4CounterTest {
     }
 
     @Test
+    void testMinIntValue() {
+        IpV4Counter counter = new IpV4Counter();
+
+        for (int i = 0; i < 5; i++) {
+            counter.countUniqueIp(Integer.MIN_VALUE);
+        }
+
+        assertEquals(1, counter.count());
+    }
+
+    @Test
     void testConcurrentNumber() throws InterruptedException {
         IpV4Counter counter = new IpV4Counter();
 
