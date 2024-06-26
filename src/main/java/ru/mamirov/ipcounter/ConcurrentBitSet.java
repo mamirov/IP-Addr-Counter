@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicLongArray;
  * Additionally add +2 to capacity to solve -2^31 number
  */
 public class ConcurrentBitSet {
-
     private final AtomicLongArray bits;
 
     public ConcurrentBitSet(int size) {
@@ -42,5 +41,13 @@ public class ConcurrentBitSet {
         }
         long bitMask = 1L << bitIndex;
         return (bits.get(wordIndex) & bitMask) != 0;
+    }
+
+    public long valuesSize() {
+        long count = 0;
+        for (int i = 0; i < bits.length(); i++) {
+            count += Long.bitCount(bits.get(i));
+        }
+        return count;
     }
 }
