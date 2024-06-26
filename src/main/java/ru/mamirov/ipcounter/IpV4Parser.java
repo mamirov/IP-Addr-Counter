@@ -18,7 +18,7 @@ public class IpV4Parser {
 
             long fileSize = file.length();
             //calculate tasks per chunks
-            int tasksCount = 2;
+            int tasksCount = Runtime.getRuntime().availableProcessors();
             if (fileSize > (long) tasksCount * Integer.MAX_VALUE) {
                 tasksCount = (int) (fileSize / (Integer.MAX_VALUE - 1)) + 1;
             }
